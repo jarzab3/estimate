@@ -1,0 +1,85 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block title %} APP {% endblock title %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}
+    <link href="{% static 'assets/css/index.css' %}" rel="stylesheet"/>
+
+{% endblock stylesheets %}
+
+{% block content %}
+
+    <div class="container">
+
+        <div id="buttons-wrapper" class="row justify-content-md-center">
+            <div class="col col-lg">
+                <div class="button_cont" align="center">
+                    <button id="enter-room-button" type="button" class="main_button" data-toggle="modal" data-target="#enterRoom">ENTER
+                        ROOM
+                    </button>
+
+                </div>
+            </div>
+
+            <div class="col-md-auto">
+
+            </div>
+            <div class="col col-lg">
+
+                <div class="button_cont" align="center">
+                    <button type="button" class="main_button" data-toggle="modal" data-target="#enterRoom1">CREATE
+                        ROOM
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="enterRoom" tabindex="-1" role="dialog" aria-labelledby="enterRoomModalLabel"
+         aria-hidden="true">
+        {#        <div class="modal-dialog" role="document">#}
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="border:none !important;">
+                    {#                    <h5 class="modal-title" id="enterRoomModalLabel">ENTER CODE</h5>#}
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="" id="token-name-modal" method="post">
+                        {% csrf_token %}
+                        <div class="form-modal">
+                            <input type="text" id="enter-input-code" maxlength='5' value='01234' />
+                            {#                            <input type="text" class="form__input" id="name" placeholder="CODE" required="" maxlength="4"/>#}
+                            {#                            <label for="name" class="form__label">CODE</label>#}
+                        </div>
+                        {#                        <button id="close-token-button" type="button" class="btn btn-secondary float-right"#}
+                        {#                                data-dismiss="modal">#}
+                        {#                            CLOSE#}
+                        {#                        </button>#}
+                        {#                        <input type="submit" class="btn btn-primary float-right" value="ENTER">#}
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}
+
+<!-- Specific JS goes HERE -->
+{% block javascripts %}
+    <script src="{% static 'assets/js/core/jquery.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'assets/js/index.js' %}"></script>
+
+    <script>
+        $(document).ready(function () {
+
+        });
+    </script>
+
+
+{% endblock javascripts %}

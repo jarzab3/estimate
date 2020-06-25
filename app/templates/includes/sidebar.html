@@ -1,0 +1,89 @@
+{% load static %}
+
+<div class="sidebar" data-color="blue">
+    <!-- Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red | yellow" -->
+    <div class="logo" style="background: white">
+        <img class="avatar border-gray" src=" {% static 'images/logo_with_slogan.png' %}" alt="...">
+    </div>
+    <div class="sidebar-wrapper" id="sidebar-wrapper">
+
+        <ul class="nav">
+
+            {% if user.is_authenticated %}
+
+            <li>
+                <a id="dashboard-a" href="/fraud_api/v1/dashboard">
+                    <i class="now-ui-icons design_app"></i>
+                    <p>Dashboard</p>
+                </a>
+            </li>
+            <li>
+                <a href="/fraud_api/v1/">
+                    <i class="now-ui-icons ui-1_settings-gear-63"></i>
+                    <p>API</p>
+                </a>
+            </li>
+            <li>
+            <li>
+                <a id="api-keys-a" href="/fraud_api/v1/api_keys">
+                    <i class="now-ui-icons objects_key-25"></i>
+                    <p>API Keys</p>
+                </a>
+            </li>
+            <li>
+                <a id="consents-a" href="/fraud_api/v1/consents">
+                    <i class="now-ui-icons files_single-copy-04"></i>
+                    <p>Consents</p>
+                </a>
+            </li>
+            <!--            <li>-->
+            <!--                <a href="/fraud_api/v1/icons.html">-->
+            <!--                    <i class="now-ui-icons education_atom"></i>-->
+            <!--                    <p>Icons</p>-->
+            <!--                </a>-->
+            <!--            </li>-->
+            <!--            <li>-->
+            <!--                <a href="/fraud_api/v1/notifications.html">-->
+            <!--                    <i class="now-ui-icons ui-1_bell-53"></i>-->
+            <!--                    <p>Notifications</p>-->
+            <!--                </a>-->
+            <!--            </li>-->
+            <li>
+                <a id="user-profile-a" href="/fraud_api/v1/profile">
+                    <i class="now-ui-icons users_single-02"></i>
+                    <p>User Profile</p>
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'logout' %}?next=/fraud_api/v1">
+                    <i class="now-ui-icons media-1_button-power"></i>
+                    <p>Logout</p>
+                </a>
+            </li>
+
+            {% endif %}
+        </ul>
+    </div>
+</div>
+
+
+<!-- Specific JS goes HERE -->
+{% block javascripts %}
+<script src="{% static 'assets/js/core/jquery.min.js' %}"></script>
+
+<script>
+    $(document).ready(function () {
+        let url = $(location).attr('pathname');
+        if (url.includes("dashboard")) {
+            $("#dashboard-a").closest("li").addClass("active");
+        } else if (url.includes("api_keys")) {
+            $("#api-keys-a").closest("li").addClass("active");
+        } else if (url.includes("consents")) {
+            $("#consents-a").closest("li").addClass("active");
+       } else if (url.includes("profile")) {
+            $("#user-profile-a").closest("li").addClass("active");
+        }
+    });
+</script>
+
+{% endblock javascripts %}
