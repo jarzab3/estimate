@@ -8,3 +8,16 @@ class EstimateSession(models.Model):
     date_created = models.DateTimeField(auto_now_add=True)
     date_modified = models.DateTimeField(auto_now=True)
     code = models.IntegerField()
+
+    def __str__(self):
+        return str(self.name)
+
+
+class SessionEntry(models.Model):
+    estimate_session = models.ForeignKey(EstimateSession, on_delete=models.CASCADE)
+    user_name = models.TextField(null=False, max_length=50)
+    channel = models.TextField(null=False, max_length=100)
+    date_created = models.DateTimeField(auto_now_add=True)
+    date_modified = models.DateTimeField(auto_now=True)
+    score = models.CharField(null=True, blank=True, max_length=5)
+    description = models.CharField(default="", null=True, blank=True, max_length=200)
