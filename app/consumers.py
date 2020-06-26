@@ -8,7 +8,7 @@ from channels.layers import get_channel_layer
 def get_users(estimate_session):
     session_entries = SessionEntry.objects.filter(estimate_session=estimate_session)
     users = [{
-        'channel': entry.channel,
+        'id': entry.id,
         'user_name': entry.user_name,
     } for entry in session_entries]
     return users
@@ -59,16 +59,17 @@ class ChatConsumer(WebsocketConsumer):
 
         # Remove entry from db
         se = SessionEntry.objects.get(channel=self.channel_name)
-        se.delete()
 
         # Update all users about disconnected users
         async_to_sync(self.channel_layer.group_send)(
             self.room_group_name,
             {
                 'type': 'chat_message',
-                'message': {"type": "delete", "content": self.channel_name}
+                'message': {"type": "delete", "id": se.id}
             }
         )
+
+        se.delete()
 
     # Receive message from WebSocket
     def receive(self, text_data):
@@ -78,6 +79,9 @@ class ChatConsumer(WebsocketConsumer):
         se = SessionEntry.objects.create(estimate_session=self.estimate_session, user_name=str(message),
                                          channel=self.channel_name)
         se.save()
+
+        if type(message) == str:
+            message = [{"id": se.id, "user_name": message}]
 
         # Send message to room group
         async_to_sync(self.channel_layer.group_send)(
@@ -91,11 +95,6 @@ class ChatConsumer(WebsocketConsumer):
     # Receive message from room group
     def chat_message(self, event):
         message = event['message']
-
-        if type(message.get('content')) == str:
-            message = get_user(estimate_session=self.estimate_session, channel=self.channel_name)
-
-        print(message)
 
         # Send message to WebSocket
         self.send(text_data=json.dumps({

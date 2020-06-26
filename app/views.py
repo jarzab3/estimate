@@ -12,9 +12,6 @@ def index_view(request):
     return render(request, "index.html")
 
 
-# def chat_view(request):
-#     return render(request, "index.html")
-
 def estimate_view(request, room_name, name):
     return render(request, 'room.html', {
         'room_name': room_name,

@@ -24,10 +24,11 @@
 
 <script>
 
-    function add_to_table(name) {
+    function add_to_table(entry) {
         let table_row = document.createElement("tr");
+        table_row.setAttribute("id", entry.id);
         let row_col_1 = document.createElement("td");
-        row_col_1.innerHTML = name;
+        row_col_1.innerHTML = entry.user_name;
         table_row.append(row_col_1);
         $("#table-content").append(table_row);
     }
@@ -35,7 +36,7 @@
     const roomName = JSON.parse(document.getElementById('room-name').textContent);
     const name = JSON.parse(document.getElementById('name').textContent);
 
-    //console.log(roomName);
+    console.log("connecting to: ", roomName);
     //console.log(name);
 
     const chatSocket = new WebSocket(
@@ -67,8 +68,13 @@
         const data = JSON.parse(e.data);
 
         if (data.message.type === "delete") {
-            console.log(data.message);
+            let msg_data = data.message;
 
+            console.log($("#" + msg_data.id));
+
+            $("#" + msg_data.id).remove();
+
+            console.log(data.message);
         } else {
             let msg_data = data.message.content;
 
@@ -76,10 +82,9 @@
 
             if (Array.isArray(msg_data) === true) {
                 $.each(msg_data, function (index, value) {
-                    add_to_table(value.user_name);
+                    add_to_table(value);
                 });
             } else {
-                //console.log(data.message.content);
                 add_to_table(msg_data);
             }
         }
@@ -88,12 +93,9 @@
 
     chatSocket.onclose = function (e) {
         //console.log(e);
-        console.error('Chat socket closed unexpectedly');
+        //console.error('Chat socket closed unexpectedly');
     };
 
-    //chatSocket.send(JSON.stringify({
-    //    'message': message
-    //}));
 
 </script>
 </body>
