@@ -16,7 +16,8 @@
         <div id="buttons-wrapper" class="row justify-content-md-center">
             <div class="col col-lg">
                 <div class="button_cont" align="center">
-                    <button id="enter-room-button" type="button" class="main_button" data-toggle="modal" data-target="#enterRoom">ENTER
+                    <button id="enter-room-button" type="button" class="main_button" data-toggle="modal"
+                            data-target="#enterRoom">ENTER
                         ROOM
                     </button>
 
@@ -40,12 +41,10 @@
 
     <div class="modal fade" id="enterRoom" tabindex="-1" role="dialog" aria-labelledby="enterRoomModalLabel"
          aria-hidden="true">
-        {#        <div class="modal-dialog" role="document">#}
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header" style="border:none !important;">
-                    {#                    <h5 class="modal-title" id="enterRoomModalLabel">ENTER CODE</h5>#}
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <button type="button" id="close-enterRoom" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -53,33 +52,80 @@
                     <form action="" id="token-name-modal" method="post">
                         {% csrf_token %}
                         <div class="form-modal">
-                            <input type="text" id="enter-input-code" maxlength='5' value='01234' />
-                            {#                            <input type="text" class="form__input" id="name" placeholder="CODE" required="" maxlength="4"/>#}
-                            {#                            <label for="name" class="form__label">CODE</label>#}
+                            <input type="text" id="enter-input-code" maxlength='5' onkeypress='validate(event)'/>
                         </div>
-                        {#                        <button id="close-token-button" type="button" class="btn btn-secondary float-right"#}
-                        {#                                data-dismiss="modal">#}
-                        {#                            CLOSE#}
-                        {#                        </button>#}
-                        {#                        <input type="submit" class="btn btn-primary float-right" value="ENTER">#}
                     </form>
                 </div>
             </div>
         </div>
     </div>
 
+    <div class="modal fade" id="enterName" tabindex="-1" role="dialog" aria-labelledby="enterNameModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="border:none !important;">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    <form action="" id="token-name-modal" method="post">
+                        {% csrf_token %}
+                        <div class="form-name-modal">
+                            <input type="text" id="enter-input-name" placeholder="John" maxlength='10'/>
+                        </div>
+
+                        <div class="button_cont" align="center">
+                            <button id="button-enter" type="button" class="go-modal-button">ENTER
+                            </button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<link href="https://fonts.googleapis.com/css?family=Bree+Serif" rel="stylesheet">
+
+{#<p class='text-center'>#}
+{#<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#demo">#}
+{#  Open Modal#}
+{#</button>#}
+{#</p>#}
+
+{#<div class="modal fade" id="demo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">#}
+{#  <div class="modal-dialog">#}
+{#    <div class="modal-content">#}
+{#      <div class="modal-header">#}
+{#        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>#}
+{#        <h1 class="modal-title">Demo Modal</h1>#}
+{#      </div>#}
+{#      <div class="modal-body">#}
+{#        Pretty Nifty eh?#}
+{#      </div>#}
+{#      <div class="modal-footer">#}
+{#        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>#}
+{#      </div>#}
+{#    </div>#}
+{#  </div>#}
+{#</div>#}
+
+
+
+
+
+
 {% endblock content %}
 
 <!-- Specific JS goes HERE -->
 {% block javascripts %}
+
     <script src="{% static 'assets/js/core/jquery.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'assets/js/core/bootstrap.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'assets/js/index.js' %}"></script>
-
-    <script>
-        $(document).ready(function () {
-
-        });
-    </script>
 
 
 {% endblock javascripts %}

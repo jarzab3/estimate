@@ -1,9 +1,9 @@
-from django.urls import path
-from channels.routing import ProtocolTypeRouter, URLRouter
-from app.consumer import LiveScoreConsumer
+# chat/routing.py
+from django.urls import re_path
 
-websockets = URLRouter([
-    path(
-        "ws/live-score/<int:game_id>", LiveScoreConsumer, name="live-score",
-    ),
-])
+from app import consumers
+
+websocket_urlpatterns = [
+    re_path(r'ws/'
+            r'estimate/(?P<room_name>\w+)/$', consumers.ChatConsumer),
+]

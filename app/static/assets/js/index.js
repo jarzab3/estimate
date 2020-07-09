@@ -1,3 +1,5 @@
+$.noConflict();
+
 function getCookie(name) {
     var cookieValue = null;
     if (document.cookie && document.cookie !== '') {
@@ -35,7 +37,19 @@ function check_code(request_data) {
         },
         success: function (data, status, xhr) {
             if (data.code != null) {
-                window.location = '/session/' + data.code;
+
+                $("#enterRoom").fadeOut("slow", function () {
+                    $('#enterRoom').modal('toggle');
+                    $('#close-enterRoom').click();
+                    $('#enterName').modal('show');
+
+                    $("#enter-input-name").ready(function (x) {
+                        $('#enter-input-name').focus()
+                    });
+
+                    listen_on_enter(data);
+                });
+
             } else {
                 highlight_input_code();
             }
@@ -44,6 +58,33 @@ function check_code(request_data) {
             console.log("Error while editing consent date: " + error);
         },
     });
+}
+
+function listen_on_enter(data) {
+    let button_enter = $("#button-enter");
+    button_enter.on("click", function () {
+        let enter_input_name = $("#enter-input-name").val();
+        window.location = '/estimate/' + data.code + '/' + enter_input_name;
+    });
+}
+
+
+function validate(evt) {
+    let theEvent = evt || window.event;
+    let key;
+    // Handle paste
+    if (theEvent.type === 'paste') {
+        key = event.clipboardData.getData('text/plain');
+    } else {
+        // Handle key press
+        key = theEvent.keyCode || theEvent.which;
+        key = String.fromCharCode(key);
+    }
+    let regex = /[0-9]|\./;
+    if (!regex.test(key)) {
+        theEvent.returnValue = false;
+        if (theEvent.preventDefault) theEvent.preventDefault();
+    }
 }
 
 $(document).ready(function () {
@@ -60,16 +101,20 @@ $(document).ready(function () {
         }
     });
 
+    // $("#enter-input-code").ready(function (x) {
+    //     $('#enter-input-code').focus()
+    // });
+
     setTimeout(function () {
         $('#enter-input-code').focus()
     }, 2000);
 
     let enter_modal = $("#enter-room-button");
     enter_modal.on("click", function () {
+        // let my_css_class = {'-webkit-filter': 'blur(3px) grayscale(90%)'};
+        // $(".container").css(my_css_class);
         enter_input.val("");
     })
-
 });
-
 
 

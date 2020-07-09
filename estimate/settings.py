@@ -54,16 +54,6 @@ ROOT_URLCONF = 'estimate.urls'
 
 # Channels settings
 ASGI_APPLICATION = "routing.application"
-# CHANNEL_LAYERS = {
-#     'default': {
-#         'BACKEND': 'channels_redis.core.RedisChannelLayer',
-#         'CONFIG': {
-#             "hosts": [""],
-#             "symmetric_encryption_keys": ["1ecdasde2"],
-#         },
-#     },
-# }
-
 CHANNEL_LAYERS = {
     "default": {
         # "BACKEND": "asgi_redis.RedisChannelLayer",

@@ -8,12 +8,15 @@ from app.models import EstimateSession
 from django.shortcuts import render
 
 
-def estimate_view(request):
+def index_view(request):
     return render(request, "index.html")
 
 
-def chat_view(request):
-    return render(request, "chat.html")
+def estimate_view(request, room_name, name):
+    return render(request, 'room.html', {
+        'room_name': room_name,
+        'name': name
+    })
 
 
 def session_view(request, code):

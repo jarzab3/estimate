@@ -20,9 +20,9 @@ from app import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    re_path(r'^$', views.estimate_view),
-    re_path(r'^session/(?P<code>\d+)', views.session_view, name="session"),
+    re_path(r'^$', views.index_view),
+    # re_path(r'^session/(?P<code>\d+)', views.session_view, name="session"),
     # re_path(r'^session', views.session_view, name="session"),
     re_path(r'^api/enter_session', views.enter_session),
-    path('chat/', include('app.urls')),
+    path('estimate/', include('app.urls')),
 ]

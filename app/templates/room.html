@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% load static %}
+
+    <meta charset="utf-8"/>
+    <title>Estimations</title>
+    <script src="{% static 'assets/js/core/jquery.min.js' %}"></script>
+</head>
+<body>
+
+<div>
+    <table>
+        <thead>
+        <th>Names</th>
+        <th>Score</th>
+        </thead>
+        <tbody id="table-content">
+    </table>
+</div>
+
+{{ room_name|json_script:"room-name" }}
+{{ name|json_script:"name" }}
+
+<script>
+
+    function add_to_table(entry) {
+        let table_row = document.createElement("tr");
+        table_row.setAttribute("id", entry.id);
+        let row_col_1 = document.createElement("td");
+        row_col_1.innerHTML = entry.user_name;
+        table_row.append(row_col_1);
+        $("#table-content").append(table_row);
+    }
+
+    const roomName = JSON.parse(document.getElementById('room-name').textContent);
+    const name = JSON.parse(document.getElementById('name').textContent);
+
+    console.log("connecting to: ", roomName);
+    //console.log(name);
+
+    const chatSocket = new WebSocket(
+        'ws://'
+        + window.location.host
+        + '/ws/estimate/'
+        + roomName
+        + '/'
+    );
+
+    let readyState = chatSocket.readyState;
+
+    // TODO add timeout
+    function checkFlag() {
+        readyState = chatSocket.readyState;
+        if (readyState === 0) {
+            window.setTimeout(checkFlag, 50);
+        } else {
+            // TODO fetch users
+            chatSocket.send(JSON.stringify({
+                'message': name,
+            }));
+        }
+    }
+
+    checkFlag();
+
+    chatSocket.onmessage = function (e) {
+        const data = JSON.parse(e.data);
+
+        if (data.message.type === "delete") {
+            let msg_data = data.message;
+
+            console.log($("#" + msg_data.id));
+
+            $("#" + msg_data.id).remove();
+
+            console.log(data.message);
+        } else {
+            let msg_data = data.message.content;
+
+            console.log(msg_data);
+
+            if (Array.isArray(msg_data) === true) {
+                $.each(msg_data, function (index, value) {
+                    add_to_table(value);
+                });
+            } else {
+                add_to_table(msg_data);
+            }
+        }
+    };
+
+    chatSocket.onclose = function (e) {
+        //console.log(e);
+        //console.error('Chat socket closed unexpectedly');
+    };
+
+
+</script>
+</body>
+</html>
