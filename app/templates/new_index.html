@@ -64,9 +64,18 @@
         <form action="" method="post">
             {% csrf_token %}
             <div class="form-name-input">
-                <input type="text" id="enter-input-name" placeholder="John" maxlength='10'/>
+                <input type="text" id="enter-input-name" placeholder="John" autocomplete="false" maxlength='10'/>
             </div>
         </form>
+        <br>
+        <div class="page__toggle">
+            <label class="toggle">
+                <input class="toggle__input" type="checkbox" checked>
+                <span class="toggle__label">
+        <span class="toggle__text">Check Me!</span>
+      </span>
+            </label>
+        </div>
 
         <br>
         <br>
