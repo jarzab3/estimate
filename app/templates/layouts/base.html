@@ -5,44 +5,44 @@
 {% load static %}
 
 <head>
-  <meta charset="utf-8" />
+    <meta charset="utf-8"/>
+    <link rel="shortcut icon" type="image/png" href="{% static 'assets/img/icon.png' %}" sizes="32x32"/>
 
-  <!-- Favicon - loaded as static -->
-{#  <link href="{% static 'assets/img/favicon.png' %}" rel="icon" type="image/png">#}
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-  
-  <title>
-    Estimation {% block title %} {% endblock %}
-  </title>
+    <!-- Favicon - loaded as static -->
+    {#  <link href="{% static 'assets/img/favicon.png' %}" rel="icon" type="image/png">#}
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
 
-  <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
-  <!--     Fonts and icons     -->
-  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
+    <title>
+        Estimation {% block title %} {% endblock %}
+    </title>
 
-  <!-- CSS Files -->
-  <link href="{% static 'assets/css/bootstrap.min.css' %}" rel="stylesheet" />
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no'
+          name='viewport'/>
+    <!--     Fonts and icons     -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet"/>
 
-  <!-- Specific CSS goes HERE -->
-  {% block stylesheets %}{% endblock stylesheets %}
+    <!-- CSS Files -->
+    {#  <link href="{% static 'assets/css/bootstrap.min.css' %}" rel="stylesheet" />#}
+
+    <!-- Specific CSS goes HERE -->
+    {% block stylesheets %}{% endblock stylesheets %}
 
 </head>
 
 <body>
-  <div class="wrapper">
 
 {#      {% include 'includes/navigation.html' %}#}
 
-      {% block content %}{% endblock content %}
+{% block content %}{% endblock content %}
 
 {#      {% include 'includes/footer.html' %}#}
 
-  </div>
 
-  {% include 'includes/scripts.html' %}
+{% include 'includes/scripts.html' %}
 
-  <!-- Specific JS goes HERE --> 
-  {% block javascripts %}{% endblock javascripts %}  
-  
+<!-- Specific JS goes HERE -->
+{% block javascripts %}{% endblock javascripts %}
+
 </body>
 
 </html>

@@ -37,19 +37,20 @@ function check_code(request_data) {
         },
         success: function (data, status, xhr) {
             if (data.code != null) {
+                $('#enter-input-name').val("");
+                setTimeout(function () {
+                    document.getElementById("code-input").style.display = "none";
+                    document.getElementById("name-input").style.display = "block";
+                    document.getElementById("name-input").style.opacity = "1";
+                }, 250);
 
-                $("#enterRoom").fadeOut("slow", function () {
-                    $('#enterRoom').modal('toggle');
-                    $('#close-enterRoom').click();
-                    $('#enterName').modal('show');
-
-                    $("#enter-input-name").ready(function (x) {
-                        $('#enter-input-name').focus()
-                    });
-
+                setTimeout(function () {
+                    $('#enter-input-name').focus();
+                    //     $("#enter-input-name").ready(function (x) {
+                    //         $('#enter-input-name').focus()
+                    //     });
                     listen_on_enter(data);
-                });
-
+                }, 1000);
             } else {
                 highlight_input_code();
             }
@@ -61,11 +62,10 @@ function check_code(request_data) {
 }
 
 function listen_on_enter(data) {
-    let button_enter = $("#button-enter");
-    button_enter.on("click", function () {
+    document.getElementById("arrow-name-input-enter").onclick = function () {
         let enter_input_name = $("#enter-input-name").val();
-        window.location = '/estimate/' + data.code + '/' + enter_input_name;
-    });
+        window.location = '/agile/estimate/' + data.code + '/' + enter_input_name;
+    };
 }
 
 
@@ -97,16 +97,16 @@ $(document).ready(function () {
             check_code(request_data);
         }
         if (code.length < 5) {
-            enter_input.css("color", "#465b71");
+            enter_input.css("color", "#f0f0f0");
         }
     });
 
     // $("#enter-input-code").ready(function (x) {
     //     $('#enter-input-code').focus()
     // });
-
+    $('#enter-input-code').val("");
     setTimeout(function () {
-        $('#enter-input-code').focus()
+        $('#enter-input-code').focus();
     }, 2000);
 
     let enter_modal = $("#enter-room-button");

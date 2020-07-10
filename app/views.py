@@ -9,7 +9,7 @@ from django.shortcuts import render
 
 
 def index_view(request):
-    return render(request, "index.html")
+    return render(request, "new_index.html")
 
 
 def estimate_view(request, room_name, name):

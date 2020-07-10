@@ -3,6 +3,12 @@
 <head>
     {% load static %}
 
+    <!-- Specific CSS goes HERE -->
+    {% block stylesheets %}
+        <link href="{% static 'assets/css/room.css' %}" rel="stylesheet"/>
+    {% endblock stylesheets %}
+
+
     <meta charset="utf-8"/>
     <title>Estimations</title>
     <script src="{% static 'assets/js/core/jquery.min.js' %}"></script>
@@ -37,15 +43,29 @@
     const name = JSON.parse(document.getElementById('name').textContent);
 
     console.log("connecting to: ", roomName);
-    //console.log(name);
+
+
+    {#var ws_scheme = window.location.protocol == "https:" ? "wss" : "ws";#}
+    {#var chatsock = new ReconnectingWebSocket(ws_scheme + '://' + window.location.host + window.location.pathname);#}
+    {#console.log(ws_scheme + '://' + window.location.host + window.location.pathname);#}
+
+    {#chatsock = new WebSocket( ws_scheme + '://' + window.location.host + ":8000/chat" );#}
+
+    {#let ws_scheme = window.location.protocol == "https:" ? "wss" : "ws";#}
+    {#var chatsock = new ReconnectingWebSocket(ws_scheme + '://' + window.location.host + window.location.pathname);#}
+
+
+    let ws_scheme = 'wss://' + window.location.host + window.location.pathname
+    console.log(ws_scheme);
 
     const chatSocket = new WebSocket(
-        'ws://'
-        + window.location.host
+        'wss://'
+        + window.location.host + "/agile"
         + '/ws/estimate/'
         + roomName
         + '/'
     );
+
 
     let readyState = chatSocket.readyState;
 

@@ -131,9 +131,9 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'app'),
-]
+# STATICFILES_DIRS = [
+#     os.path.join(BASE_DIR, 'app'),
+# ]
 
-# STATIC_ROOT = '/var/www/static/'
-STATIC_ROOT = 'temp_static'
+STATIC_ROOT = '/var/static/'
+# STATIC_ROOT = 'temp_static'

@@ -18,11 +18,12 @@ from django.urls import path
 from django.conf.urls import include, url, re_path
 from app import views
 
-urlpatterns = [
+urlpatterns = [url(r'^agile/', include([
     path('admin/', admin.site.urls),
     re_path(r'^$', views.index_view),
     # re_path(r'^session/(?P<code>\d+)', views.session_view, name="session"),
     # re_path(r'^session', views.session_view, name="session"),
     re_path(r'^api/enter_session', views.enter_session),
     path('estimate/', include('app.urls')),
-]
+])),
+               ]
