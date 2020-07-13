@@ -23,7 +23,8 @@ urlpatterns = [url(r'^agile/', include([
     re_path(r'^$', views.index_view),
     # re_path(r'^session/(?P<code>\d+)', views.session_view, name="session"),
     # re_path(r'^session', views.session_view, name="session"),
-    re_path(r'^api/enter_session', views.enter_session),
+    re_path(r'^api/validate_code', views.validate_session_code),
+    re_path(r'^api/validate_code_pass', views.validate_session_code_and_password),
     path('estimate/', include('app.urls')),
 ])),
                ]

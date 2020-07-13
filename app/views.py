@@ -9,7 +9,7 @@ from django.shortcuts import render
 
 
 def index_view(request):
-    return render(request, "new_index.html")
+    return render(request, "index.html")
 
 
 def estimate_view(request, room_name, name):
@@ -26,8 +26,9 @@ def session_view(request, code):
 
 
 @api_view(['POST'])
-def enter_session(request):
+def validate_session_code(request):
     """
+    Check if code is ok.
     """
     if request.method == 'POST':
         code = request.data.get("code", None)
@@ -41,5 +42,29 @@ def enter_session(request):
                     session.code,
                 'date_created': session.date_created,
             }
+        return Response(session_return, status=status.HTTP_200_OK)
 
+
+@api_view(['POST'])
+def validate_session_code_and_password(request):
+    """
+    """
+    if request.method == 'POST':
+        code = request.data.get("code", None)
+        password = request.data.get("password", None)
+
+        print("code  ", code, "password:  ", password)
+
+        session = EstimateSession.objects.filter(code=code).first()
+        print(session.session_password)
+
+        session_return = None
+        if session:
+            session_return = {
+                'id': session.id,
+                'name': session.name,
+                'code':
+                    session.code,
+                'date_created': session.date_created,
+            }
         return Response(session_return, status=status.HTTP_200_OK)

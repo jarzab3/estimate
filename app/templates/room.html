@@ -15,6 +15,16 @@
 </head>
 <body>
 
+
+<section id="home-button-container">
+    <div class="svg-wrapper" id="container-button-1">
+        <svg height="60" width="320" xmlns="http://www.w3.org/2000/svg">
+            <rect class="shape" height="60" width="320"/>
+            <div class="text">HOME</div>
+        </svg>
+    </div>
+</section>
+
 <div>
     <table>
         <thead>
@@ -44,22 +54,11 @@
 
     console.log("connecting to: ", roomName);
 
-
-    {#var ws_scheme = window.location.protocol == "https:" ? "wss" : "ws";#}
-    {#var chatsock = new ReconnectingWebSocket(ws_scheme + '://' + window.location.host + window.location.pathname);#}
-    {#console.log(ws_scheme + '://' + window.location.host + window.location.pathname);#}
-
-    {#chatsock = new WebSocket( ws_scheme + '://' + window.location.host + ":8000/chat" );#}
-
-    {#let ws_scheme = window.location.protocol == "https:" ? "wss" : "ws";#}
-    {#var chatsock = new ReconnectingWebSocket(ws_scheme + '://' + window.location.host + window.location.pathname);#}
-
-
-    let ws_scheme = 'wss://' + window.location.host + window.location.pathname
-    console.log(ws_scheme);
+    let ws_scheme = window.location.protocol == "https:" ? "wss" : "ws";
 
     const chatSocket = new WebSocket(
-        'wss://'
+        ws_scheme
+        + '://'
         + window.location.host + "/agile"
         + '/ws/estimate/'
         + roomName
@@ -98,7 +97,7 @@
         } else {
             let msg_data = data.message.content;
 
-            console.log(msg_data);
+            {#console.log(msg_data);#}
 
             if (Array.isArray(msg_data) === true) {
                 $.each(msg_data, function (index, value) {
@@ -115,6 +114,9 @@
         //console.error('Chat socket closed unexpectedly');
     };
 
+    document.getElementById("home-button-container").onclick = function () {
+        window.location = '/agile';
+    };
 
 </script>
 </body>

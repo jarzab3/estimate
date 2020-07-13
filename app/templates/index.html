@@ -6,126 +6,221 @@
 <!-- Specific CSS goes HERE -->
 {% block stylesheets %}
     <link href="{% static 'assets/css/index.css' %}" rel="stylesheet"/>
-
 {% endblock stylesheets %}
 
 {% block content %}
 
-    <div class="container">
-
-        <div id="buttons-wrapper" class="row justify-content-md-center">
-            <div class="col col-lg">
-                <div class="button_cont" align="center">
-                    <button id="enter-room-button" type="button" class="main_button" data-toggle="modal"
-                            data-target="#enterRoom">ENTER
-                        ROOM
-                    </button>
-
-                </div>
-            </div>
-
-            <div class="col-md-auto">
-
-            </div>
-            <div class="col col-lg">
-
-                <div class="button_cont" align="center">
-                    <button type="button" class="main_button" data-toggle="modal" data-target="#enterRoom1">CREATE
-                        ROOM
-                    </button>
-                </div>
-
-            </div>
+    <section id="buttons-container">
+        <div class="svg-wrapper" id="container-button-1">
+            <svg height="60" width="320" xmlns="http://www.w3.org/2000/svg">
+                <rect class="shape" height="60" width="320"/>
+                <div class="text">ENTER ROOM</div>
+            </svg>
         </div>
-    </div>
 
-    <div class="modal fade" id="enterRoom" tabindex="-1" role="dialog" aria-labelledby="enterRoomModalLabel"
-         aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header" style="border:none !important;">
-                    <button type="button" id="close-enterRoom" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form action="" id="token-name-modal" method="post">
-                        {% csrf_token %}
-                        <div class="form-modal">
-                            <input type="text" id="enter-input-code" maxlength='5' onkeypress='validate(event)'/>
-                        </div>
-                    </form>
-                </div>
-            </div>
+        <div class="svg-wrapper" id="container-button-2">
+            <svg height="60" width="320" xmlns="http://www.w3.org/2000/svg">
+                <rect class="shape" height="60" width="320"/>
+                <div class="text">CREATE ROOM</div>
+            </svg>
         </div>
-    </div>
 
-    <div class="modal fade" id="enterName" tabindex="-1" role="dialog" aria-labelledby="enterNameModalLabel"
-         aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header" style="border:none !important;">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
+    </section>
 
-                <div class="modal-body">
-                    <form action="" id="token-name-modal" method="post">
-                        {% csrf_token %}
-                        <div class="form-name-modal">
-                            <input type="text" id="enter-input-name" placeholder="John" maxlength='10'/>
-                        </div>
+    <!-- Code input -->
+    <section id="code-input">
 
-                        <div class="button_cont" align="center">
-                            <button id="button-enter" type="button" class="go-modal-button">ENTER
-                            </button>
-                        </div>
-
-                    </form>
-                </div>
+        <form action="" method="post">
+            {% csrf_token %}
+            <div class="form-modal">
+                <input type="text" id="enter-input-code" maxlength='5' onkeypress='validate(event)'/>
             </div>
-        </div>
+        </form>
+
+        <br>
+        <br>
+        <br>
+
+        <section class="arrow" id="arrow-code-input">
+
+            <div class="wrapper">
+                <svg width="18px" height="17px" viewBox="0 0 18 17" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                     xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <g id="prev" transform="translate(8.500000, 8.500000) scale(-1, 1) translate(-8.500000, -8.500000)">
+                        <polygon class="arrow"
+                                 points="16.3746667 8.33860465 7.76133333 15.3067621 6.904 14.3175671 14.2906667 8.34246869 6.908 2.42790698 7.76 1.43613596"></polygon>
+                        <polygon class="arrow-fixed"
+                                 points="16.3746667 8.33860465 7.76133333 15.3067621 6.904 14.3175671 14.2906667 8.34246869 6.908 2.42790698 7.76 1.43613596"></polygon>
+                        <path d="M-1.48029737e-15,0.56157424 L-1.48029737e-15,16.1929159 L9.708,8.33860465 L-2.66453526e-15,0.56157424 L-1.48029737e-15,0.56157424 Z M1.33333333,3.30246869 L7.62533333,8.34246869 L1.33333333,13.4327013 L1.33333333,3.30246869 L1.33333333,3.30246869 Z"></path>
+                    </g>
+                </svg>
+            </div>
+        </section>
+
+    </section>
+
+    <!-- Name input -->
+    <section id="name-input">
+        <input type="checkbox" id="chk"/>
+        <label id="admin-label" for="chk"> Admin </label>
+        <br>
+        <br>
+        <form action="" method="post">
+            {% csrf_token %}
+            <div class="form-name-input">
+                <input type="text" id="enter-input-name" placeholder="John" autocomplete="false" maxlength='10'/>
+            </div>
+        </form>
+
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+
+        <section class="arrow" id="arrow-name-input">
+            <div class="wrapper">
+                <svg width="18px" height="17px" viewBox="0 0 18 17" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                     xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <g id="prev" transform="translate(8.500000, 8.500000) scale(-1, 1) translate(-8.500000, -8.500000)">
+                        <polygon class="arrow"
+                                 points="16.3746667 8.33860465 7.76133333 15.3067621 6.904 14.3175671 14.2906667 8.34246869 6.908 2.42790698 7.76 1.43613596"></polygon>
+                        <polygon class="arrow-fixed"
+                                 points="16.3746667 8.33860465 7.76133333 15.3067621 6.904 14.3175671 14.2906667 8.34246869 6.908 2.42790698 7.76 1.43613596"></polygon>
+                        <path d="M-1.48029737e-15,0.56157424 L-1.48029737e-15,16.1929159 L9.708,8.33860465 L-2.66453526e-15,0.56157424 L-1.48029737e-15,0.56157424 Z M1.33333333,3.30246869 L7.62533333,8.34246869 L1.33333333,13.4327013 L1.33333333,3.30246869 L1.33333333,3.30246869 Z"></path>
+                    </g>
+                </svg>
+            </div>
+        </section>
+        <br>
+        <br>
+
+        <section class="arrow" id="arrow-name-input-enter">
+            <div class="wrapper">
+                <svg width="18px" height="17px" viewBox="0 0 18 17" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                     xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <g id="prev" transform="translate(8.500000, 8.500000) scale(-1, 1) translate(-8.500000, -8.500000)">
+                        <polygon class="arrow"
+                                 points="16.3746667 8.33860465 7.76133333 15.3067621 6.904 14.3175671 14.2906667 8.34246869 6.908 2.42790698 7.76 1.43613596"></polygon>
+                        <polygon class="arrow-fixed"
+                                 points="16.3746667 8.33860465 7.76133333 15.3067621 6.904 14.3175671 14.2906667 8.34246869 6.908 2.42790698 7.76 1.43613596"></polygon>
+                        <path d="M-1.48029737e-15,0.56157424 L-1.48029737e-15,16.1929159 L9.708,8.33860465 L-2.66453526e-15,0.56157424 L-1.48029737e-15,0.56157424 Z M1.33333333,3.30246869 L7.62533333,8.34246869 L1.33333333,13.4327013 L1.33333333,3.30246869 L1.33333333,3.30246869 Z"></path>
+                    </g>
+                </svg>
+            </div>
+        </section>
+
+    </section>
+
+
+    <!-- Password input -->
+    <section id="pass-input">
+
+        <form action="" method="post" id="enter-session-pass-form">
+            {% csrf_token %}
+            <div class="form-name-input">
+                <input type="password" id="enter-input-password" placeholder="password" required/>
+            </div>
+        </form>
+
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+
+        <section class="arrow" id="arrow-pass-input">
+            <div class="wrapper">
+                <svg width="18px" height="17px" viewBox="0 0 18 17" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                     xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <g id="prev" transform="translate(8.500000, 8.500000) scale(-1, 1) translate(-8.500000, -8.500000)">
+                        <polygon class="arrow"
+                                 points="16.3746667 8.33860465 7.76133333 15.3067621 6.904 14.3175671 14.2906667 8.34246869 6.908 2.42790698 7.76 1.43613596"></polygon>
+                        <polygon class="arrow-fixed"
+                                 points="16.3746667 8.33860465 7.76133333 15.3067621 6.904 14.3175671 14.2906667 8.34246869 6.908 2.42790698 7.76 1.43613596"></polygon>
+                        <path d="M-1.48029737e-15,0.56157424 L-1.48029737e-15,16.1929159 L9.708,8.33860465 L-2.66453526e-15,0.56157424 L-1.48029737e-15,0.56157424 Z M1.33333333,3.30246869 L7.62533333,8.34246869 L1.33333333,13.4327013 L1.33333333,3.30246869 L1.33333333,3.30246869 Z"></path>
+                    </g>
+                </svg>
+            </div>
+        </section>
+        <br>
+        <br>
+        <section class="arrow" id="arrow-pass-input-enter">
+            <div class="wrapper">
+                <svg width="18px" height="17px" viewBox="0 0 18 17" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                     xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <g id="prev" transform="translate(8.500000, 8.500000) scale(-1, 1) translate(-8.500000, -8.500000)">
+                        <polygon class="arrow"
+                                 points="16.3746667 8.33860465 7.76133333 15.3067621 6.904 14.3175671 14.2906667 8.34246869 6.908 2.42790698 7.76 1.43613596"></polygon>
+                        <polygon class="arrow-fixed"
+                                 points="16.3746667 8.33860465 7.76133333 15.3067621 6.904 14.3175671 14.2906667 8.34246869 6.908 2.42790698 7.76 1.43613596"></polygon>
+                        <path d="M-1.48029737e-15,0.56157424 L-1.48029737e-15,16.1929159 L9.708,8.33860465 L-2.66453526e-15,0.56157424 L-1.48029737e-15,0.56157424 Z M1.33333333,3.30246869 L7.62533333,8.34246869 L1.33333333,13.4327013 L1.33333333,3.30246869 L1.33333333,3.30246869 Z"></path>
+                    </g>
+                </svg>
+            </div>
+        </section>
+
+    </section>
+
+
+    <div id="footer">
+
+        <hr class="style14">
+        <div id="copyright">&copy; Innovation Tribe 2020</div>
+
     </div>
-
-<link href="https://fonts.googleapis.com/css?family=Bree+Serif" rel="stylesheet">
-
-{#<p class='text-center'>#}
-{#<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#demo">#}
-{#  Open Modal#}
-{#</button>#}
-{#</p>#}
-
-{#<div class="modal fade" id="demo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">#}
-{#  <div class="modal-dialog">#}
-{#    <div class="modal-content">#}
-{#      <div class="modal-header">#}
-{#        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>#}
-{#        <h1 class="modal-title">Demo Modal</h1>#}
-{#      </div>#}
-{#      <div class="modal-body">#}
-{#        Pretty Nifty eh?#}
-{#      </div>#}
-{#      <div class="modal-footer">#}
-{#        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>#}
-{#      </div>#}
-{#    </div>#}
-{#  </div>#}
-{#</div>#}
-
-
-
-
-
-
 {% endblock content %}
 
 <!-- Specific JS goes HERE -->
 {% block javascripts %}
 
     <script src="{% static 'assets/js/core/jquery.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'assets/js/core/bootstrap.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'assets/js/index.js' %}"></script>
 
+    <script>
+
+        document.addEventListener('DOMContentLoaded', function (event) {
+            document.getElementById("container-button-1").onclick = function () {
+                document.getElementById("buttons-container").style.opacity = "0";
+                setTimeout(() => {
+                    document.getElementById("buttons-container").style.display = "none";
+                    document.getElementById("code-input").style.display = "block";
+                }, 500);
+            };
+
+            document.getElementById("container-button-2").onclick = function () {
+                document.getElementById("buttons-container").style.opacity = "0";
+                setTimeout(() => {
+                    document.getElementById("buttons-container").style.display = "none";
+                    document.getElementById("buttons-prepaid").style.display = "block";
+                }, 500);
+            };
+
+            {# This action comes back from input code to main menu#}
+            document.getElementById("arrow-code-input").onclick = function () {
+                document.getElementById("buttons-container").style.display = "block";
+                document.getElementById("code-input").style.display = "none";
+                document.getElementById("buttons-container").style.opacity = "1";
+                $('#enter-input-code').val("");
+            };
+
+            {# This action comes back from input name to main menu#}
+            document.getElementById("arrow-name-input").onclick = function () {
+                document.getElementById("buttons-container").style.display = "block";
+                document.getElementById("name-input").style.display = "none";
+                document.getElementById("buttons-container").style.opacity = "1";
+                $('#enter-input-code').val("");
+            };
+
+            {# This action comes back from pass input to main menu#}
+            document.getElementById("arrow-pass-input").onclick = function () {
+                document.getElementById("buttons-container").style.display = "block";
+                document.getElementById("pass-input").style.display = "none";
+                document.getElementById("buttons-container").style.opacity = "1";
+                $('#enter-input-code').val("");
+            };
+
+        });
+    </script>
 
 {% endblock javascripts %}
