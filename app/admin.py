@@ -14,7 +14,7 @@ class EstimateSessionForm(ModelForm):
 
 @admin.register(EstimateSession)
 class EstimateSessionView(admin.ModelAdmin):
-    list_display = ('id', 'name', 'code', 'date_created', 'date_modified')
+    list_display = ('id', 'name', 'session_admin_user', 'code', 'date_created', 'date_modified')
     ordering = ('-id',)
     # search_fields = ('resource_name', 'user', 'msisdn')
     form = EstimateSessionForm

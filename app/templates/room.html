@@ -8,13 +8,11 @@
         <link href="{% static 'assets/css/room.css' %}" rel="stylesheet"/>
     {% endblock stylesheets %}
 
-
     <meta charset="utf-8"/>
     <title>Estimations</title>
     <script src="{% static 'assets/js/core/jquery.min.js' %}"></script>
 </head>
 <body>
-
 
 <section id="home-button-container">
     <div class="svg-wrapper" id="container-button-1">
@@ -24,6 +22,22 @@
         </svg>
     </div>
 </section>
+
+<div>
+    {% if user.is_authenticated %}
+
+        <p>  {{ request.user.username }}</p>
+
+    {% endif %}
+
+    {% if session_name %}
+        <p>  {{ room_name }} </p>
+        <p>  {{ session_name }}</p>
+    {% endif %}
+
+    {% csrf_token %}
+
+</div>
 
 <div>
     <table>
@@ -65,7 +79,6 @@
         + '/'
     );
 
-
     let readyState = chatSocket.readyState;
 
     // TODO add timeout
@@ -89,15 +102,11 @@
         if (data.message.type === "delete") {
             let msg_data = data.message;
 
-            console.log($("#" + msg_data.id));
-
             $("#" + msg_data.id).remove();
 
             console.log(data.message);
         } else {
             let msg_data = data.message.content;
-
-            {#console.log(msg_data);#}
 
             if (Array.isArray(msg_data) === true) {
                 $.each(msg_data, function (index, value) {
@@ -114,7 +123,7 @@
         //console.error('Chat socket closed unexpectedly');
     };
 
-    document.getElementById("home-button-container").onclick = function () {
+    document.getElementById("container-button-1").onclick = function () {
         window.location = '/agile';
     };
 

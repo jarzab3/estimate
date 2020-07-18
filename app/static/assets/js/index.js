@@ -31,6 +31,8 @@ function highlight_pass_input() {
     // if (code.length === 5) {
     //     enter_input.css("color", "red");
     // }
+    let enter_password_arrow = $('#arrow-pass-input-enter');
+    enter_password_arrow.css("color", "#f0f0f0");
 }
 
 function check_code(request_data) {
@@ -46,16 +48,13 @@ function check_code(request_data) {
         },
         success: function (data, status, xhr) {
             if (data.code != null) {
-
                 localStorage.setItem("session_code", data.code);
-
                 $('#enter-input-name').val("");
                 setTimeout(function () {
                     document.getElementById("code-input").style.display = "none";
                     document.getElementById("name-input").style.display = "block";
                     document.getElementById("name-input").style.opacity = "1";
                 }, 250);
-
                 setTimeout(function () {
                     $('#enter-input-name').focus();
                     //     $("#enter-input-name").ready(function (x) {
@@ -78,15 +77,18 @@ function validate_password(request_data) {
     let csrftoken = getCookie('csrftoken');
     $.ajax({
         type: "POST",
-        url: "api/validate_code_pass",
+        url: "api/pass_validate_code",
         data: request_data,
         headers: {
             "X-CSRFToken": csrftoken,
             "Accept": "application/json",
-            "Content-Type": "application/json",
+            "Content-Type": "application/json; charset=utf-8",
         },
         success: function (data, status, xhr) {
-            if (data.code != null) {
+            if (data != null) {
+                console.log()
+                // window.location = '/agile/estimate/' + data.code + '/' + enter_input_name;
+
                 console.log("success entered pass");
                 // $('#enter-input-name').val("");
                 // setTimeout(function () {
@@ -113,7 +115,6 @@ function listen_on_enter(data) {
         let enter_input_name = $("#enter-input-name").val();
         let is_admin = $("#chk").is(":checked");
         if (is_admin === true) {
-            console.log("admin login");
             // go to pass view
             document.getElementById("name-input").style.opacity = "0";
             setTimeout(() => {
@@ -121,17 +122,15 @@ function listen_on_enter(data) {
                 document.getElementById("pass-input").style.display = "block";
             }, 500);
 
-            document.getElementById("arrow-pass-input-enter").onclick = function () {
-                console.log("checking pass");
-            }
-
+            // document.getElementById("arrow-pass-input-enter").onclick = function () {
+            //     console.log("checking pass");
+            // }
 
         } else {
             window.location = '/agile/estimate/' + data.code + '/' + enter_input_name;
         }
     };
 }
-
 
 function validate(evt) {
     let theEvent = evt || window.event;
@@ -165,20 +164,42 @@ $(document).ready(function () {
         }
     });
 
-
-    let enter_password_input = $('input#enter-input-password');
-    enter_password_input.on("input", function () {
-        let pass = this.value;
-        if (pass.length >= 5) {
-            //Get code from storage
-            let code_from_storage = localStorage.getItem("session_code");
-            let request_data = JSON.stringify({password: pass, code: code_from_storage});
-            validate_password(request_data);
-        }
-        if (pass.length < 5) {
-            enter_password_input.css("color", "#f0f0f0");
+    let enter_password_arrow = $('#arrow-pass-input-enter');
+    enter_password_arrow.on("click", function () {
+        let frm = document.getElementById('enter-session-pass-form') || null;
+        let enter_input_name = $('#enter-input-name').val();
+        let code_from_storage = localStorage.getItem("session_code");
+        // console.log(enter_input_name);
+        // console.log(code_from_storage);
+        if (frm) {
+            frm.action = '/agile/estimate/' + code_from_storage + '/' + enter_input_name;
+            frm.submit(function () {
+                var csrftoken = getCookie('csrftoken');
+            });
         }
     });
+
+    let pass_input = $("#enter-input-password");
+    // Execute a function when the user releases a key on the keyboard
+    pass_input.on("keyup", function (event) {
+        if (event.keyCode === 13) {
+            // Cancel the default action, if needed
+            event.preventDefault();
+            // Trigger the button element with a click
+            enter_password_arrow.click();
+            // submit_form();
+        }
+    });
+
+    // $('#submitButton').click(function (event) {
+    //     event.preventDefault(); //so that we stop normal form submit.
+    //     let pass = $('input#enter-input-password').val();
+    //     Get code from storage
+    // let code_from_storage = localStorage.getItem("session_code");
+    // let username = $('#enter-input-name').val();
+    // let request_data = JSON.stringify({password: pass, code: code_from_storage, username: username});
+    // validate_password(request_data);
+    // });
 
 
     // $("#enter-input-code").ready(function (x) {

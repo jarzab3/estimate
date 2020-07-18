@@ -137,3 +137,10 @@ STATIC_URL = '/static/'
 
 STATIC_ROOT = '/var/static/'
 # STATIC_ROOT = 'temp_static'
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ]
+}

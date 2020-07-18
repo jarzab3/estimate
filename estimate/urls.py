@@ -15,16 +15,16 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from django.conf.urls import include, url, re_path
+from django.conf.urls import include, url
 from app import views
 
 urlpatterns = [url(r'^agile/', include([
     url(r'^admin/', admin.site.urls),
-    re_path(r'^$', views.index_view),
+    url(r'^$', views.index_view),
     # re_path(r'^session/(?P<code>\d+)', views.session_view, name="session"),
     # re_path(r'^session', views.session_view, name="session"),
-    re_path(r'^api/validate_code', views.validate_session_code),
-    re_path(r'^api/validate_code_pass', views.validate_session_code_and_password),
+    url(r'^api/validate_code', views.validate_session_code),
+    # url(r'^api/pass_validate_code', views.validate_session_code_and_password),
     path('estimate/', include('app.urls')),
 ])),
                ]
