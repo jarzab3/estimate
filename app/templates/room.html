@@ -14,28 +14,29 @@
 </head>
 <body>
 
-<section id="home-button-container">
-    <div class="svg-wrapper" id="container-button-1">
-        <svg height="60" width="320" xmlns="http://www.w3.org/2000/svg">
-            <rect class="shape" height="60" width="320"/>
-            <div class="text">HOME</div>
-        </svg>
-    </div>
-</section>
 
-<div>
-    {% if user.is_authenticated %}
+<header id="header">
+    <nav class="links" style="--items: 3;">
+        {% if user.is_authenticated %}
+            <a><i class="fa fa-sign-out" style="font-size:24px"></i>
+                <span> USER: {{ request.user.username|upper }}</span></a>
+        {% else %}
+            <a>USER: {{ name|upper }}</a>
+        {% endif %}
 
-        <p>  {{ request.user.username }}</p>
+        <a href="/agile">HOME</a>
+        {% if user.is_authenticated %}
+            <a href="" onclick="return false;"> {{ session_name }} <br> START</a>
+        {% else %}
+            <a> {{ session_name }}</a>
+        {% endif %}
 
-    {% endif %}
+        <span class="line"></span>
+    </nav>
+</header>
 
-    {% if session_name %}
-        <p>  {{ room_name }} </p>
-        <p>  {{ session_name }}</p>
-    {% endif %}
 
-    {% csrf_token %}
+<div id="room-container">
 
 </div>
 
@@ -123,9 +124,9 @@
         //console.error('Chat socket closed unexpectedly');
     };
 
-    document.getElementById("container-button-1").onclick = function () {
-        window.location = '/agile';
-    };
+    {#document.getElementById("container-button-1").onclick = function () {#}
+    {#    window.location = '/agile';#}
+    <!-- };} -->
 
 </script>
 </body>

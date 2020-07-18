@@ -20,6 +20,7 @@ def index_view(request):
 
 
 def estimate_view(request, room_name, name):
+    session = None
     if request.method == 'POST':
         user = None
         try:
@@ -49,9 +50,16 @@ def estimate_view(request, room_name, name):
                 request.session.set_expiry(0)
             return render(request, 'room.html', session_return)
 
+    try:
+        session = EstimateSession.objects.filter(code=room_name).first()
+        session_name = session.name
+    except Exception:
+        session_name = ""
+
     return render(request, 'room.html', {
         'room_name': room_name,
-        'name': name
+        'session_name': session_name,
+        'name': name,
     })
 
 
